@@ -124,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   
     // Search books
-    // Search books and display results in the 'result' section
 searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const query = searchForm.searchBookTitle.value.toLowerCase();
