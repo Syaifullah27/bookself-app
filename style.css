@@ -1,31 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
-html, body{
+
+html, body {
     scroll-behavior: smooth;
 }
- /* Hilangkan tombol panah di browser berbasis WebKit (Chrome, Safari, Edge) */
- input[type="number"]::-webkit-inner-spin-button,
- input[type="number"]::-webkit-outer-spin-button {
-   -webkit-appearance: none;
-   margin: 0;
- }
 
- /* Hilangkan tombol panah di Firefox */
- input[type="number"] {
-   -moz-appearance: textfield;
- }
-*{
+/* Hilangkan tombol panah di browser berbasis WebKit (Chrome, Safari, Edge) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hilangkan tombol panah di Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+* {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
 body {
-    background:#e9e9e9;
-    padding:  0 20px;
+    background: #e9e9e9;
+    padding: 0 20px;
     max-width: 1100px;
     margin: 0 auto;
     color: #2b3235;
-    font-family: poppins;
+    font-family: Poppins;
 }
 
 header {
@@ -45,7 +48,7 @@ header {
     gap: 10px;
 }
 
-input{
+input {
     padding: 10px;
     border-radius: 5px;
     background-color: #dcdce0;
@@ -73,7 +76,7 @@ input::placeholder {
     border-radius: 20px;
     height: fit-content;
     width: 45%;
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 }
 
 .inputWithLabel {
@@ -95,7 +98,7 @@ input::placeholder {
 
 .checkbox {
     padding: 5px;
-    display: flex ;
+    display: flex;
     gap: 10px;
     font-size: 13px;
     align-items: center;
@@ -110,14 +113,14 @@ input::placeholder {
     font-size: 1em;
     font-weight: 500;
     border-radius: 10px;
-    transition: .3s ;
+    transition: 0.3s;
 }
 
 .addBook button:hover {
     background-color: #2e40e4;
 }
 
-.checkbox input{
+.checkbox input {
     margin-top: 1px;
 }
 
@@ -125,11 +128,7 @@ input::placeholder {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* justify-content: center;
-    align-items: center; */
-    /* height: 100vh; */
 }
-
 
 .result {
     margin-top: 20px;
@@ -137,24 +136,23 @@ input::placeholder {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .searchResult {
+}
+
+.searchResult {
     margin-bottom: 15px;
     padding: 10px;
     border-bottom: 1px solid #dcdce0;
-  }
-  
-  .searchResult h3 {
+}
+
+.searchResult h3 {
     font-size: 1.2em;
     color: #333;
-  }
-  
-  .searchResult p {
+}
+
+.searchResult p {
     font-size: 0.9em;
     color: #555;
-  }
-  
+}
 
 .searchBook {
     margin-top: 10px;
@@ -165,7 +163,7 @@ input::placeholder {
     padding: 20px;
     border-radius: 20px;
     height: fit-content;
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 }
 
 .searchBook form {
@@ -178,7 +176,8 @@ input::placeholder {
     font-weight: 500;
 }
 
-.searchBook form input, .searchBook form button {
+.searchBook form input,
+.searchBook form button {
     font-size: 1.2em;
 }
 
@@ -186,7 +185,7 @@ input::placeholder {
     padding: 5px;
     border-radius: 5px;
     background-color: #dcdce0;
-    border: none;  
+    border: none;
 }
 
 .searchBook form input:focus {
@@ -207,10 +206,10 @@ input::placeholder {
     padding: 0px 15px;
     border-radius: 5px;
     border: none;
-    border-radius:10px;
+    border-radius: 10px;
     background-color: #3c4ff8;
     color: white;
-    transition: .3s ease;
+    transition: 0.3s ease;
 }
 
 .searchBook form button:hover {
@@ -230,8 +229,6 @@ input::placeholder {
     gap: 10px;
 }
 
-
-
 .book h3 {
     font-size: 1.4em;
     color: #333;
@@ -239,30 +236,75 @@ input::placeholder {
 }
 
 .book p {
-    font-size: .9em;
+    font-size: 0.9em;
     color: #555;
     margin: 0;
 }
 
+/* Gaya untuk container tombol di rak buku */
 .book div {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    gap: 5px; /* Jarak antara tombol */
+    width: 100%; /* Pastikan container tombol mengambil lebar penuh */
 }
 
+/* Gaya untuk semua tombol di rak buku */
 .book button {
+    flex: 1; /* Membuat tombol memiliki lebar yang sama */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px; /* Jarak antara ikon dan teks */
     padding: 10px;
     border: none;
     border-radius: 5px;
     font-size: 0.7em;
     cursor: pointer;
-    background-color: #3c4ff8;
     color: white;
     transition: background-color 0.3s;
+    text-align: center;
 }
 
-.book button:hover {
-    background-color: #2e40e4;
+/* Gaya khusus untuk tombol "Belum selesai dibaca" */
+.book button[data-testid="bookItemIsCompleteButton"] {
+    background-color: #3c4ff8; /* Warna biru */
+}
+
+.book button[data-testid="bookItemIsCompleteButton"]:hover {
+    background-color: #2e40e4; /* Warna biru lebih gelap saat hover */
+}
+
+/* Gaya untuk tombol Hapus */
+.book button[data-testid="bookItemDeleteButton"] {
+    background-color: #ff4d4d; /* Warna merah */
+}
+
+.book button[data-testid="bookItemDeleteButton"]:hover {
+    background-color: #cc0000; /* Warna merah lebih gelap saat hover */
+}
+
+/* Gaya untuk tombol Edit */
+.book button[data-testid="bookItemEditButton"] {
+    background-color: #ffa500; /* Warna oranye */
+}
+
+.book button[data-testid="bookItemEditButton"]:hover {
+    background-color: #e69500; /* Warna oranye lebih gelap saat hover */
+}
+
+/* Tambahkan ikon pada tombol Hapus dan Edit */
+.book button[data-testid="bookItemDeleteButton"]::before {
+    content: "\f1f8"; /* Ikon trash dari Font Awesome */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 0.9em;
+}
+
+.book button[data-testid="bookItemEditButton"]::before {
+    content: "\f044"; /* Ikon edit dari Font Awesome */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 0.9em;
 }
 
 #incompleteBookList,
@@ -274,9 +316,8 @@ input::placeholder {
 }
 
 @media screen and (max-width: 868px) {
-    
-
-    .addBook, .searching {
+    .addBook,
+    .searching {
         width: 100%;
     }
 
@@ -300,11 +341,24 @@ input::placeholder {
     #completeBookList {
         grid-template-columns: repeat(2, 1fr);
     }
+
+
 }
+
+@media screen and (max-width: 550px) {
+    .book div {
+        flex-direction: column;
+        /* border: 1px solid #dcdce0; */
+        margin-top: 10px;
+    }
+}
+
 
 @media screen and (max-width: 480px) {
     #incompleteBookList,
     #completeBookList {
         grid-template-columns: 1fr;
     }
+   
 }
+
