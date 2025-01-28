@@ -47,25 +47,25 @@ document.addEventListener("DOMContentLoaded", () => {
       year.textContent = `Tahun: ${book.year}`;
   
       const buttons = document.createElement("div");
-
-const toggleButton = document.createElement("button");
-toggleButton.dataset.testid = "bookItemIsCompleteButton";
-toggleButton.textContent = book.isComplete ? "Belum selesai dibaca" : "Selesai dibaca";
-toggleButton.addEventListener("click", () => toggleBookCompletion(book.id));
-
-const deleteButton = document.createElement("button");
-deleteButton.dataset.testid = "bookItemDeleteButton";
-deleteButton.textContent = "Hapus Buku";
-deleteButton.addEventListener("click", () => deleteBook(book.id));
-
-const editButton = document.createElement("button");
-editButton.dataset.testid = "bookItemEditButton";
-editButton.textContent = "Edit Buku";
-editButton.addEventListener("click", () => editBook(book.id));
-
-buttons.appendChild(toggleButton);
-buttons.appendChild(deleteButton);
-buttons.appendChild(editButton);
+  
+      const toggleButton = document.createElement("button");
+      toggleButton.dataset.testid = "bookItemIsCompleteButton";
+      toggleButton.textContent = book.isComplete ? "Belum selesai dibaca" : "Selesai dibaca";
+      toggleButton.addEventListener("click", () => toggleBookCompletion(book.id));
+  
+      const deleteButton = document.createElement("button");
+      deleteButton.dataset.testid = "bookItemDeleteButton";
+      deleteButton.textContent = "Hapus Buku";
+      deleteButton.addEventListener("click", () => deleteBook(book.id));
+  
+      const editButton = document.createElement("button");
+      editButton.dataset.testid = "bookItemEditButton";
+      editButton.textContent = "Edit Buku";
+      editButton.addEventListener("click", () => editBook(book.id));
+  
+      buttons.appendChild(toggleButton);
+      buttons.appendChild(deleteButton);
+      buttons.appendChild(editButton);
   
       bookItem.appendChild(title);
       bookItem.appendChild(author);
@@ -75,19 +75,19 @@ buttons.appendChild(editButton);
       return bookItem;
     };
   
-      // Add new book
+    // Add new book
     bookForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const books = loadBooks();
-
+  
       const newBook = {
         id: Date.now(),
         title: bookForm.bookFormTitle.value,
         author: bookForm.bookFormAuthor.value,
-        year: parseInt(bookForm.bookFormYear.value), // Konversi ke number
+        year: bookForm.bookFormYear.value,
         isComplete: bookForm.bookFormIsComplete.checked,
       };
-
+  
       books.push(newBook);
       saveBooks(books);
       renderBooks(books);
@@ -103,96 +103,78 @@ buttons.appendChild(editButton);
       renderBooks(books);
     };
   
-      // Delete book
+    // Delete book
     const deleteBook = (id) => {
-      // Tampilkan dialog konfirmasi
-      const isConfirmed = confirm("Apakah Anda yakin ingin menghapus buku ini?");
-      
-      // Jika pengguna memilih "OK", lanjutkan penghapusan
-      if (isConfirmed) {
-        const books = loadBooks().filter((book) => book.id !== id);
-        saveBooks(books);
-        renderBooks(books);
-      }
+      const books = loadBooks().filter((book) => book.id !== id);
+      saveBooks(books);
+      renderBooks(books);
     };
   
     // Edit book
-const editBook = (id) => {
-  const books = loadBooks();
-  const book = books.find((book) => book.id === id);
-
-  // Isi form dengan data buku yang akan diedit
-  bookForm.bookFormTitle.value = book.title;
-  bookForm.bookFormAuthor.value = book.author;
-  bookForm.bookFormYear.value = book.year;
-  bookForm.bookFormIsComplete.checked = book.isComplete;
-
-  // Hapus buku dari daftar setelah form diisi
-  const updatedBooks = books.filter((book) => book.id !== id);
-  saveBooks(updatedBooks);
-  renderBooks(updatedBooks);
-};
+    const editBook = (id) => {
+      const books = loadBooks();
+      const book = books.find((book) => book.id === id);
+  
+      bookForm.bookFormTitle.value = book.title;
+      bookForm.bookFormAuthor.value = book.author;
+      bookForm.bookFormYear.value = book.year;
+      bookForm.bookFormIsComplete.checked = book.isComplete;
+  
+      deleteBook(id);
+    };
   
     // Search books
-      searchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const query = searchForm.searchBookTitle.value.trim().toLowerCase(); // Gunakan trim() untuk menghapus spasi di awal dan akhir
-
-        // Validasi: Jika query kosong, tampilkan pesan dan jangan tampilkan buku
-        if (query === "") {
-          displaySearchResults([]); // Tampilkan hasil kosong
-          return; // Hentikan eksekusi lebih lanjut
-        }
-
-        // Lanjutkan pencarian jika query tidak kosong
-        const books = loadBooks().filter((book) => book.title.toLowerCase().includes(query));
-        displaySearchResults(books);
-      });
+searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const query = searchForm.searchBookTitle.value.toLowerCase();
+    const books = loadBooks().filter((book) => book.title.toLowerCase().includes(query));
+    displaySearchResults(books);
+  });
   
-    // Function to display search results
-    const displaySearchResults = (books) => {
-      const resultContainer = document.querySelector(".result");
-      resultContainer.innerHTML = "<h2>Hasil pencarian:</h2>"; // Clear previous results
-
-      if (books.length === 0) {
-        resultContainer.innerHTML += "<p>Tidak ada hasil yang ditemukan.</p>";
-        return;
-      }
-
-      books.forEach((book) => {
-        const bookElement = document.createElement("div");
-        bookElement.classList.add("searchResult");
-
-        const title = document.createElement("h3");
-        title.textContent = `Judul: ${book.title}`;
-
-        const author = document.createElement("p");
-        author.textContent = `Penulis: ${book.author}`;
-
-        const year = document.createElement("p");
-        year.textContent = `Tahun: ${book.year}`;
-
-        const status = document.createElement("p");
-        status.textContent = `Status: ${book.isComplete ? "Selesai dibaca" : "Belum selesai dibaca"}`;
-
-        bookElement.appendChild(title);
-        bookElement.appendChild(author);
-        bookElement.appendChild(year);
-        bookElement.appendChild(status);
-
-        resultContainer.appendChild(bookElement);
-      });
-    };
+  // Function to display search results
+  const displaySearchResults = (books) => {
+    const resultContainer = document.querySelector(".result");
+    resultContainer.innerHTML = "<h2>Hasil pencarian:</h2>"; // Clear previous results
+  
+    if (books.length === 0) {
+      resultContainer.innerHTML += "<p>Tidak ada hasil yang ditemukan.</p>";
+      return;
+    }
+  
+    books.forEach((book) => {
+      const bookElement = document.createElement("div");
+      bookElement.classList.add("searchResult");
+  
+      const title = document.createElement("h3");
+      title.textContent = `Judul: ${book.title}`;
+  
+      const author = document.createElement("p");
+      author.textContent = `Penulis: ${book.author}`;
+  
+      const year = document.createElement("p");
+      year.textContent = `Tahun: ${book.year}`;
+  
+      const status = document.createElement("p");
+      status.textContent = `Status: ${book.isComplete ? "Selesai dibaca" : "Belum selesai dibaca"}`;
+  
+      bookElement.appendChild(title);
+      bookElement.appendChild(author);
+      bookElement.appendChild(year);
+      bookElement.appendChild(status);
+  
+      resultContainer.appendChild(bookElement);
+    });
+  };
   
   
     // Initial render
     renderBooks(loadBooks());
   });
   
-    // Update button text
-    function updateButtonText() {
-        const isChecked = document.getElementById("bookFormIsComplete").checked;
-        const buttonText = document.getElementById("buttonText");
-        buttonText.textContent = isChecked ? "Selesai dibaca" : "Belum selesai dibaca";
-      }
+// Update button text
+function updateButtonText() {
+    const isChecked = document.getElementById("bookFormIsComplete").checked;
+    const buttonText = document.getElementById("buttonText");
+    buttonText.textContent = isChecked ? "Selesai dibaca" : "Belum selesai dibaca";
+  }
   
